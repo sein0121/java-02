@@ -15,7 +15,7 @@ class EmailNotifier implements Notifier {
   }
 }
 
-// 약속을 실제로 이행하는 구현 클래스 2
+// 약속이행하는 구을 실제로 현 클래스 2
 class SmsNotifier implements Notifier {
 
   @Override
