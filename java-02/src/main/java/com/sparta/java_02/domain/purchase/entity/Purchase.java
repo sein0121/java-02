@@ -1,6 +1,7 @@
 package com.sparta.java_02.domain.purchase.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.sparta.java_02.common.enums.PurchaseStatus;
 import com.sparta.java_02.domain.user.entity.User;
 import jakarta.persistence.Column;
@@ -42,6 +43,7 @@ public class Purchase {
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id", nullable = false)
+  @JsonBackReference
   User user;
 
   @Column(name = "total_price") //스네이크 명명법은생략가능

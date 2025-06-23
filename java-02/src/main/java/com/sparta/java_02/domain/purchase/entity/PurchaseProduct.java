@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 public class PurchaseProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "purchase_id",nullable = false)
@@ -31,13 +31,26 @@ public class PurchaseProduct {
     @JoinColumn(name = "product_id",nullable = false)
     Product product;
 
+    @Column(nullable = false)
+    Integer quantity;
+
+    @Column(nullable = false)
+    BigDecimal price;
+
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
     LocalDateTime createdAt;
 
     @Builder
-    public PurchaseProduct(Purchase purchase, Product product) {
+    public PurchaseProduct(
+            Purchase purchase,
+            Product product,
+            Integer quantity,
+            BigDecimal price
+    ) {
         this.purchase = purchase;
         this.product = product;
+        this.quantity = quantity;
+        this.price = price;
     }
 }

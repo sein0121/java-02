@@ -13,27 +13,40 @@ import java.time.LocalDateTime;
 
 @Table
 @Entity
+@Getter
 @DynamicInsert
 @DynamicUpdate
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Category {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    String name;
+    @Column(nullable = false)
+    private String name;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
-    @JsonBackReference
-    Category parent;
+    private Category parent;
 
-    @CreationTimestamp
     @Column(nullable = false, updatable = false)
+    @CreationTimestamp
     LocalDateTime createdAt;
 
-    @Column
+    @Column(nullable = false)
     @UpdateTimestamp
     LocalDateTime updatedAt;
+
+    @Builder
+    public Category(
+            String name,
+            Category parent
+    ) {
+        this.name = name;
+        this.parent = parent;
+    }
+
 }
