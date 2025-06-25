@@ -1,8 +1,10 @@
 package com.sparta.java_02.domain.user.controller;
 
+import com.sparta.java_02.common.response.ApiResponse;
 import com.sparta.java_02.domain.user.dto.UserRequest;
 import com.sparta.java_02.domain.user.dto.UserSearchResponse;
 import com.sparta.java_02.domain.user.service.UserService;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -41,16 +43,24 @@ public class UserController { //Controller 는 어떻게 운영될것인가 하�
 //    this.userService = userService;
 //  }
 
-  @GetMapping("/{userId}")
-  public ResponseEntity<UserSearchResponse> findAll(
-      //ResponseEntity - 응답값을 보낼때 header, body, http 상태값도 같이 보내는
-      @RequestParam(name = "email", required = false) String email,
-      @PathVariable Long userId) {
-    //GET /api/users/sein?email="aaa@naver.com" , name과 인자값이 같을때 name 생략가능
+//  ResponseEntity 사용!!
+//  @GetMapping("/{userId}")
+//  public ResponseEntity<UserSearchResponse> findAll(
+//      //ResponseEntity - 응답값을 보낼때 header, body, http 상태값도 같이 보내는
+//      @RequestParam(name = "email", required = false) String email,
+//      @PathVariable Long userId) {
+//    //GET /api/users/sein?email="aaa@naver.com" , name과 인자값이 같을때 name 생략가능
+//
+////    return ResponseEntity.status(200).body(UserSearchResponse.builder().build());
+//    //ResponseEntity - builder 제공
+//    return ResponseEntity.ok(UserSearchResponse.builder().build());
+//  }
 
-//    return ResponseEntity.status(200).body(UserSearchResponse.builder().build());
-    //ResponseEntity - builder 제공
-    return ResponseEntity.ok(UserSearchResponse.builder().build());
+  //  ApiResponse 사용
+  @GetMapping("/{userId}")
+  public ApiResponse<List<UserSearchResponse>> findAll(@PathVariable Long userId,
+      @RequestParam String email) {
+    return ApiResponse.success(userService.searchAll(userId));
   }
 
   @PostMapping
