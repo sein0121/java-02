@@ -27,7 +27,7 @@ public class GlobalExceptionHandler {
     return ApiResponse.error(ex.getCode(), ex.getMessage());
   }
 
-  //404 - exception 이 잡아내지 못하는 에러 , 웹서버와 Controller 사이의 필터에서 나는 에러
+  //404 -> 400 - exception 이 잡아내지 못하는 에러 , 웹서버와 Controller 사이의 필터에서 나는 에러
   @ExceptionHandler(MethodArgumentNotValidException.class)
   public ResponseEntity<?> methodArgumentNotValidException(MethodArgumentNotValidException ex) {
     AtomicReference<String> errors = new AtomicReference<>("");
@@ -36,7 +36,7 @@ public class GlobalExceptionHandler {
     return ApiResponse.badRequest(VALIDATE_ERROR, String.valueOf(errors));
   }
 
-  //404 - requestParam 이 잘 안들어온 것
+  //404 -> 400 - requestParam 이 잘 안들어온 것
   @ExceptionHandler(BindException.class)
   public ResponseEntity<?> bindException(BindException ex) {
     AtomicReference<String> errors = new AtomicReference<>("");

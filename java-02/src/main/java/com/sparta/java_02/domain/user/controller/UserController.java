@@ -4,6 +4,7 @@ import com.sparta.java_02.common.response.ApiResponse;
 import com.sparta.java_02.domain.user.dto.UserRequest;
 import com.sparta.java_02.domain.user.dto.UserSearchResponse;
 import com.sparta.java_02.domain.user.service.UserService;
+import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -64,7 +65,7 @@ public class UserController { //Controller 는 어떻게 운영될것인가 하�
   }
 
   @PostMapping
-  public ResponseEntity<Void> save(@RequestBody UserRequest request) {
+  public ResponseEntity<Void> save(@Valid @RequestBody UserRequest request) {
     //   잭손 -  request 는 json 형태로 들어오는데 이걸 객체로 변환해줌
     userService.save();
   }
